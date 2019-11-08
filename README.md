@@ -1,5 +1,7 @@
 # Memory-Tools
-A program that provides a series a tools specially designed to manipulate process memory in interesting ways. Tested on Windows 10. **Memory Tools v2.7** is recommended. The downloads can be found [here](https://github.com/Delkarix/Memory-Tools/releases).
+A program that provides a series a tools specially designed to manipulate process memory in interesting ways. Built and tested on Windows 10. The downloads can be found [here](https://github.com/Delkarix/Memory-Tools/releases).
+
+> **NOTE**: This repository is a recreation of my old one. While experimenting with another one of my programs (`Peter Griffin`), the Visual Studio files became corrupted and the application completely broke.
 
 ## Current Features
 ### Current Features
@@ -75,7 +77,7 @@ A program that provides a series a tools specially designed to manipulate proces
 2. Click **Properties**. A window will be displayed indicating the list of CPU registers used by the process. You can change the values by editing the next.
 > **NOTE**: The numeric system is `Hexidecimal`. If the desired text is not in Hexidecimal format, the text will turn red indicating that it must be changed.
 
-> **NOTE**: If you want to hijack a thread, it is a good idea to use the **Function Injector** to inject the `gets` function. The `gets` function is a default C/C++ function that forces a thread to pause and wait for input. A parameter is required, but it can be anything. Locate the thread in the thread list (you might need to click **Reload**) and change the `Current Instruction` field from there.
+> **NOTE**: If you want to execute code without utilizing DLL injections, it is a good idea to use the **Function Injector** to inject the `gets` function. The `gets` function is a default C/C++ function that forces a thread to pause and wait for input. A parameter is required, but it can be anything. Locate the thread in the thread list (you might need to click **Reload**) and change the `Current Instruction` field to the address of a desired function. If you wish to hijack a thread, locate the desired thread and suspend it. Then, change the `Current Instruction` field to the address of the desired function.
 
 ## Code Injector
 1. Click on **File** in the top-left corner and select **Select Process**.
