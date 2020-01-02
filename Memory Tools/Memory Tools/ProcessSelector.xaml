@@ -1,0 +1,103 @@
+﻿<!--ALWAYS MAKE SURE THAT OPACITY IS SET TO 100 WHEN FIXING. OTHERWISE, SET TO 0-->
+<Window x:Class="Memory_Tools.ProcessSelector"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:self="clr-namespace:Memory_Tools"
+        xmlns:props="clr-namespace:Memory_Tools.Properties"
+        mc:Ignorable="d"
+        Opacity="0"
+        Title="Process Selector" Height="334.696" Width="393.049" Background="#FF5A5A5A" WindowStyle="None" AllowsTransparency="True" Closing="Window_Closing">
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Duration="00:00:0.25" Storyboard.TargetProperty="Opacity" To="1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Window.Resources>
+        <self:ImageConverter x:Key="Conv"/>
+        <DataTemplate x:Key="Template">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding Path=Icon, Converter={StaticResource Conv}}"
+                   Width="16"
+                   Height="16"/>
+                <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <ListView x:Name="ProcessList" HorizontalAlignment="Left" Height="257" VerticalAlignment="Top" Width="361" Margin="14,35,0,0" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource Template}"/>
+        <Button x:Name="OK" Content="OK" HorizontalAlignment="Left" Margin="14,297,0,0" VerticalAlignment="Top" Width="116" Click="OK_Click"/>
+        <Button x:Name="Reload" Content="Reload" HorizontalAlignment="Center" Margin="135,297,143,0" VerticalAlignment="Top" Width="115" RenderTransformOrigin="0.495,0.396" Click="Reload_Click"/>
+        <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Right" Margin="0,297,18,0" VerticalAlignment="Top" Width="120" Click="Cancel_Click"/>
+        <Grid HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="393" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+            <Rectangle Fill="#FF5A5A5A" HorizontalAlignment="Left" Height="35" Stroke="#FF5A5A5A" VerticalAlignment="Top" Width="393"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Process Selector" VerticalAlignment="Top" Margin="14,5,0,0" Foreground="#FF00FFEB" Height="15" FontSize="14"/>
+            <Label x:Name="CloseButton" Content="x" HorizontalAlignment="Left" Margin="364,-6,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="32" Height="41" FontFamily="OCR A Extended" MouseDown="CloseButton_MouseDown">
+                <Label.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="Close"/>
+                    </ToolTip>
+                </Label.ToolTip>
+
+                <Label.Triggers>
+                    <EventTrigger RoutedEvent="Label.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Red" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="Label.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Black" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Label.Triggers>
+            </Label>
+            <Label x:Name="MinimizeButton" Content="__" HorizontalAlignment="Left" Margin="335,-6,0,-15" VerticalAlignment="Top" FontSize="32" Height="56" FontFamily="OCR A Extended" MouseDown="MinimizeButton_MouseDown">
+                <Label.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="Minimize"/>
+                    </ToolTip>
+                </Label.ToolTip>
+
+                <Label.Triggers>
+                    <EventTrigger RoutedEvent="Label.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Yellow" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="Label.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Black" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Label.Triggers>
+            </Label>
+        </Grid>
+    </Grid>
+
+</Window>

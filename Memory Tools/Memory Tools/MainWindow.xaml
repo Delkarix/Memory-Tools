@@ -1,0 +1,373 @@
+﻿<!--ALWAYS MAKE SURE THAT OPACITY IS SET TO 100 WHEN FIXING. OTHERWISE, SET TO 0-->
+<Window x:Class="Memory_Tools.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Opacity="0"
+        Title="Memory Tools" Height="480.508" Width="751.026" Foreground="Black" Background="#FF5A5A5A" Closing="Window_Closing" WindowStyle="None" AllowsTransparency="True">
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Duration="00:00:0.25" Storyboard.TargetProperty="Opacity" To="1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid>
+        <TabControl HorizontalAlignment="Left" Height="387" Margin="10,87,0,0" VerticalAlignment="Top" Width="365">
+            <TabItem Header="Memory Corruptor">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Module Information" HorizontalAlignment="Left" Height="309" Margin="10,10,0,0" VerticalAlignment="Top" Width="214" BorderBrush="Black">
+                        <Grid>
+                            <TreeView x:Name="ModuleList" HorizontalAlignment="Left" Height="257" VerticalAlignment="Top" Width="204" Margin="0,25,-2,0"/>
+                            <Button x:Name="ReloadModules" Content="Reload Modules" HorizontalAlignment="Left" VerticalAlignment="Top" Width="96" Click="ReloadModules_Click"/>
+                            <Button x:Name="KillProcess" Content="Kill Process" HorizontalAlignment="Left" Margin="101,0,0,0" VerticalAlignment="Top" Width="101" Click="KillProcess_Click"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Corruption Settings" HorizontalAlignment="Left" Height="205" Margin="229,10,0,0" VerticalAlignment="Top" Width="125" BorderBrush="Black">
+                        <Grid>
+                            <RadioButton x:Name="Frameshift" Content="Frameshift Bytes" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="Randomize" Content="Randomize Bytes" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="Increment" Content="Increment Bytes" HorizontalAlignment="Left" Margin="0,50,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="Decrement" Content="Decrement Bytes" HorizontalAlignment="Left" Margin="0,70,0,0" VerticalAlignment="Top"/>
+                            <GroupBox Header="Base Address" HorizontalAlignment="Left" Height="48" Margin="-2,85,0,0" VerticalAlignment="Top" Width="115" BorderBrush="Black">
+                                <TextBox x:Name="BaseAddress" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" TextChanged="TextBox_HexidecimalChecker">
+                                    <TextBox.ToolTip>
+                                        <ToolTip>
+                                            <TextBlock Text="Start Address of Corruption"/>
+                                        </ToolTip>
+                                    </TextBox.ToolTip>
+                                </TextBox>
+                            </GroupBox>
+                            <GroupBox Header="End Address" HorizontalAlignment="Left" Height="48" Margin="-2,133,0,0" VerticalAlignment="Top" Width="115" BorderBrush="Black">
+                                <TextBox x:Name="EndAddress" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" TextChanged="TextBox_HexidecimalChecker">
+                                    <TextBox.ToolTip>
+                                        <ToolTip>
+                                            <TextBlock Text="End Address of Corruption"/>
+                                        </ToolTip>
+                                    </TextBox.ToolTip>
+                                </TextBox>
+                            </GroupBox>
+
+                        </Grid>
+                    </GroupBox>
+                    <Button x:Name="ToggleCorruption" Content="▶" HorizontalAlignment="Left" Margin="229,220,0,0" VerticalAlignment="Top" Width="125" Height="24" Background="#FF96FF7D" Click="StartCorruption_Click">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                <TextBlock Text="Start Corruption"/>
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                    <ProgressBar x:Name="CorruptionProgress" HorizontalAlignment="Left" Height="25" Margin="10,324,0,0" VerticalAlignment="Top" Width="344"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Process Manipulator">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Window Painter" HorizontalAlignment="Left" Height="150" Margin="10,0,0,0" VerticalAlignment="Top" Width="116" BorderBrush="Black">
+                        <Grid>
+                            <Button x:Name="CurrentColor" Content="Current Color" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Background="White" Height="100" Click="CurrentColor_Click">
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <TextBlock Text="Change the Color"/>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="ToggleDraw" Content="▶" HorizontalAlignment="Left" Margin="0,105,0,0" VerticalAlignment="Top" Width="100" Click="ToggleDraw_Click" Background="#FF96FF96">
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <TextBlock Text="Start Drawing"/>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                            </Button>
+
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Control Injector" HorizontalAlignment="Left" Height="150" Margin="126,0,0,0" VerticalAlignment="Top" Width="233" BorderBrush="Black">
+                        <Grid>
+                            <GroupBox Header="x" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="56" BorderBrush="Black" Margin="0,-6,0,0">
+                                <TextBox x:Name="ControlX" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" Margin="0,0,-2,0" TextChanged="TextBox_IntegerChecker"/>
+                            </GroupBox>
+                            <GroupBox Header="y" HorizontalAlignment="Left" Height="46" Margin="56,-6,0,0" VerticalAlignment="Top" Width="56" BorderBrush="Black">
+                                <TextBox x:Name="ControlY" HorizontalAlignment="Left" TextWrapping="Wrap" Width="46" Margin="0,0,-2,1" TextChanged="TextBox_IntegerChecker"/>
+                            </GroupBox>
+                            <GroupBox Header="Width" HorizontalAlignment="Left" Height="46" Margin="112,-6,0,0" VerticalAlignment="Top" Width="56" BorderBrush="Black">
+                                <TextBox x:Name="ControlWidth" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" TextChanged="TextBox_IntegerChecker"/>
+                            </GroupBox>
+                            <GroupBox Header="Height" HorizontalAlignment="Left" Height="46" Margin="168,-6,-3,0" VerticalAlignment="Top" Width="56" BorderBrush="Black">
+                                <TextBox x:Name="ControlHeight" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" TextChanged="TextBox_IntegerChecker"/>
+                            </GroupBox>
+                            <Button x:Name="InjectControl" Content="Inject Control" HorizontalAlignment="Left" Margin="61,91,0,0" VerticalAlignment="Top" Width="107" Click="InjectControl_Click"/>
+                            <GroupBox Header="Text" HorizontalAlignment="Left" Height="48" Margin="0,38,0,0" VerticalAlignment="Top" Width="112" BorderBrush="Black">
+                                <TextBox x:Name="ControlText" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Margin="0,0,-2,0"/>
+                            </GroupBox>
+                            <GroupBox Header="Control Type" HorizontalAlignment="Left" Height="46" Margin="112,40,-3,0" VerticalAlignment="Top" Width="112" BorderBrush="Black">
+                                <ComboBox x:Name="ControlTypes" HorizontalAlignment="Left" Height="20" Margin="0,0,-2,0" VerticalAlignment="Top" Width="102">
+                                    <ComboBoxItem Content="Button" Tag="Button" IsSelected="True"/>
+                                    <ComboBoxItem Content="Combo Box" Tag="ComboBox"/>
+                                    <ComboBoxItem Content="Textbox" Tag="Edit"/>
+                                    <ComboBoxItem Content="Header" Tag="Header"/>
+                                    <ComboBoxItem Content="List Box" Tag="ListBox"/>
+                                    <ComboBoxItem Content="IP Address Field" Tag="SysIPAddress32"/>
+                                    <ComboBoxItem Content="Hyperlink" Tag="SysLink"/>
+                                    <ComboBoxItem Content="List View" Tag="SysListView32"/>
+                                    <ComboBoxItem Content="Pager" Tag="SysPager"/>
+                                    <ComboBoxItem Content="Scroll Bar" Tag="ScrollBar"/>
+                                    <ComboBoxItem Content="Label" Tag="Static"/>
+                                    <ComboBoxItem Content="Tree View" Tag="SysTreeView32"/>
+                                    <ComboBoxItem Content="Progress Bar" Tag="msctls_progress32"/>
+                                    <ComboBoxItem Content="Rebar" Tag="ReBarWindow32"/>
+                                    <ComboBoxItem Content="Status Bar" Tag="msctls_status32"/>
+                                    <ComboBoxItem Content="Tool Bar" Tag="ToolBarWindow32"/>
+                                    <ComboBoxItem Content="Tool Tip" Tag="tooltips_class32"/>
+                                    <ComboBoxItem Content="Slider" Tag="msctls_trackbar32"/>
+                                    <ComboBoxItem Content="Up-Down Box" Tag="msctls_updown32"/>
+                                </ComboBox>
+                            </GroupBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Thread Manager" HorizontalAlignment="Left" Height="199" Margin="10,150,0,0" VerticalAlignment="Top" Width="349" BorderBrush="Black">
+                        <Grid>
+                            <ListView x:Name="ThreadList" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Width="337">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Thread ID" DisplayMemberBinding="{Binding Id}"/>
+                                        <GridViewColumn Header="Time Started" DisplayMemberBinding="{Binding TimeStarted}"/>
+                                        <GridViewColumn Header="Start Address" DisplayMemberBinding="{Binding StartAddress}"/>
+                                        <GridViewColumn Header="State" DisplayMemberBinding="{Binding State}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Button x:Name="ReloadThreadsButton" Content="Reload" HorizontalAlignment="Left" Margin="88,155,0,0" VerticalAlignment="Top" Width="75" Click="ReloadThreadsButton_Click">
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <TextBlock Text="Reloads the list."/>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="Properties" Content="Properties" HorizontalAlignment="Left" Margin="168,155,0,0" Width="75" Click="Properties_Click">
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <TextBlock Text="Selected Thread Properties"/>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                            </Button>
+
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Code Injector">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="DLL Injector" HorizontalAlignment="Left" Height="162" VerticalAlignment="Top" Width="359" BorderBrush="Black">
+                        <Grid>
+                            <Button x:Name="SelectDLL" Content="Select DLL" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="SelectDLL_Click" Margin="0,10,0,0"/>
+                            <Button x:Name="InjectDLL" Content="Inject DLLs" HorizontalAlignment="Left" Margin="0,110,0,0" VerticalAlignment="Top" Width="75" Click="InjectDLL_Click"/>
+                            <GroupBox Header="DLL Files" HorizontalAlignment="Left" Height="143" Margin="80,-4,0,0" VerticalAlignment="Top" Width="267" BorderBrush="Black">
+                                <ListBox x:Name="DLLFiles" HorizontalAlignment="Left" Height="117" VerticalAlignment="Top" Width="257" Margin="0,0,-2,0"/>
+                            </GroupBox>
+                            <Button x:Name="RemoveDLL" Content="Remove DLL" HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" Width="75" Click="RemoveDLL_Click"/>
+                            <Button x:Name="ResetList" Content="Reset List" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top" Width="75" Click="ResetList_Click"/>
+                            <Button x:Name="UnloadDLL" Content="Unload DLL" HorizontalAlignment="Left" Margin="0,85,0,0" VerticalAlignment="Top" Width="75" Click="UnloadDLL_Click"/>
+
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Bytecode Manipulator" HorizontalAlignment="Left" Height="197" Margin="0,162,0,0" VerticalAlignment="Top" Width="359" BorderBrush="Black">
+                        <Grid>
+                            <GroupBox Header="Reader" HorizontalAlignment="Left" Height="93" Margin="0,81,0,0" VerticalAlignment="Top" Width="226" BorderBrush="Black">
+                                <Grid>
+                                    <Button x:Name="SaveBytecode" Content="Save File" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="0,4,0,0" Click="SaveBytecode_Click"/>
+                                    <GroupBox Header="Base Address" HorizontalAlignment="Left" Height="47" Margin="0,24,0,0" VerticalAlignment="Top" Width="105" BorderBrush="Black">
+                                        <TextBox x:Name="BytecodeBaseAddress1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" TextChanged="TextBox_HexidecimalChecker" Margin="0,0,-2,0"/>
+                                    </GroupBox>
+                                    <GroupBox Header="End Address" HorizontalAlignment="Left" Height="47" Margin="105,24,0,0" VerticalAlignment="Top" Width="109" BorderBrush="Black">
+                                        <TextBox x:Name="BytecodeEndAddress" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" TextChanged="TextBox_HexidecimalChecker" Margin="0,0,-2,0"/>
+                                    </GroupBox>
+
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox x:Name="WriterBox" Header="Writer" HorizontalAlignment="Left" Height="85" VerticalAlignment="Top" Width="226" BorderBrush="Black" Margin="0,-4,0,0">
+                                <Grid>
+                                    <Button x:Name="OpenBytecode" Content="Open File" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="0,10,0,0" Click="OpenBytecode_Click"/>
+                                    <Button x:Name="InjectBytecode" Content="Inject" HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" Width="80" Click="InjectBytecode_Click"/>
+                                    <GroupBox Header="Base Address" HorizontalAlignment="Left" Height="67" Margin="85,-4,0,0" VerticalAlignment="Top" Width="129" BorderBrush="Black">
+                                        <Grid>
+                                            <CheckBox x:Name="AllocateMemory" Content="Allocate Memory" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="AllocateMemory_Checked" Unchecked="AllocateMemory_Unchecked"/>
+                                            <TextBox x:Name="BytecodeBaseAddress" HorizontalAlignment="Left" Height="23" Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="117" TextChanged="TextBox_HexidecimalChecker"/>
+
+                                        </Grid>
+                                    </GroupBox>
+
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Function Injector" HorizontalAlignment="Left" Height="132" Margin="231,-4,0,0" VerticalAlignment="Top" Width="111" BorderBrush="Black">
+                                <Grid>
+                                    <Button x:Name="InjectFunction" Content="Inject Function" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Click="InjectFunction_Click" Margin="0,2,0,0"/>
+                                    <TextBox x:Name="Function" HorizontalAlignment="Left" Height="20" Margin="0,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99"/>
+                                    <GroupBox Header="Parameter" HorizontalAlignment="Left" Height="61" Margin="0,47,0,0" VerticalAlignment="Top" Width="99" BorderBrush="Black">
+                                        <Grid>
+                                            <TextBox x:Name="FunctionParameter" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="87"/>
+                                            <CheckBox x:Name="IsInteger" Content="Integer" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top"/>
+
+                                        </Grid>
+                                    </GroupBox>
+
+                                </Grid>
+                            </GroupBox>
+
+                        </Grid>
+                    </GroupBox>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <GroupBox Header="Selected Process" HorizontalAlignment="Left" Height="43" Margin="10,39,0,0" VerticalAlignment="Top" Width="365" BorderBrush="White" Foreground="#FF00FFEB">
+            <Grid>
+                <Image x:Name="ProcessIcon" HorizontalAlignment="Left" Height="16" Margin="10,0,0,0" VerticalAlignment="Top" Width="16"/>
+                <TextBlock x:Name="CurrentProcess" HorizontalAlignment="Left" Margin="31,0,0,0" TextWrapping="Wrap" Text="None" VerticalAlignment="Top" Foreground="#FF00FFE8" MouseDown="CurrentProcess_MouseDown">
+                    <TextBlock.ToolTip>
+                        <ToolTip>
+                            <TextBlock Text="The Selected Process"/>
+                        </ToolTip>
+                    </TextBlock.ToolTip>
+                    
+                    <TextBlock.Effect>
+                        <BlurEffect Radius="0" x:Name="blurEffect"/>
+                    </TextBlock.Effect>
+                    
+                    <TextBlock.Triggers>
+                        <EventTrigger RoutedEvent="TextBlock.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation From="0" To="5" Storyboard.TargetName="blurEffect" Storyboard.TargetProperty="Radius" Duration="0:0:0.25"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                        <EventTrigger RoutedEvent="TextBlock.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation From="5" To="0" Storyboard.TargetName="blurEffect" Storyboard.TargetProperty="Radius" Duration="0:0:0.25"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </TextBlock.Triggers>
+                </TextBlock>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Output" HorizontalAlignment="Left" Height="435" Margin="380,39,0,0" VerticalAlignment="Top" Width="362" Foreground="#FF00FFEB">
+            <Grid>
+                <ListView x:Name="OutputView" HorizontalAlignment="Left" Height="413" VerticalAlignment="Top" Width="350" Background="Black" Foreground="White">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Address}"/>
+                            <GridViewColumn Header="Byte" DisplayMemberBinding="{Binding ByteData}"/>
+                            <GridViewColumn Header="Message">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Message}" Foreground="{Binding ColorData}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
+        <Grid HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="770" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+            <Rectangle Fill="#FF5A5A5A" HorizontalAlignment="Left" Height="40" Stroke="#FF5A5A5A" VerticalAlignment="Top" Width="770"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Memory Tools" VerticalAlignment="Top" Margin="14,5,0,0" Foreground="#FF00FFEB" Height="35" FontSize="25"/>
+            <Label x:Name="CloseButton" Content="x" HorizontalAlignment="Left" Margin="720,0,0,-1" VerticalAlignment="Top" Foreground="Black" FontSize="32" Height="41" FontFamily="OCR A Extended" MouseDown="CloseButton_MouseDown">
+                <Label.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="Close"/>
+                    </ToolTip>
+                </Label.ToolTip>
+
+                <Label.Triggers>
+                    <EventTrigger RoutedEvent="Label.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Red" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="Label.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Black" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Label.Triggers>
+            </Label>
+            <Label x:Name="MinimizeButton" Content="__" HorizontalAlignment="Left" Margin="691,0,0,-16" VerticalAlignment="Top" FontSize="32" Height="56" FontFamily="OCR A Extended" MouseDown="MinimizeButton_MouseDown">
+                <Label.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="Minimize"/>
+                    </ToolTip>
+                </Label.ToolTip>
+
+                <Label.Triggers>
+                    <EventTrigger RoutedEvent="Label.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Yellow" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="Label.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Black" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Label.Triggers>
+            </Label>
+            <Label x:Name="HelpButton" Content="?" HorizontalAlignment="Left" Margin="665,5,0,-21" VerticalAlignment="Top" FontSize="28" Height="56" FontFamily="Microsoft Sans Serif" MouseDown="HelpButton_MouseDown">
+                <Label.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="Help"/>
+                    </ToolTip>
+                </Label.ToolTip>
+
+                <Label.Triggers>
+                    <EventTrigger RoutedEvent="Label.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Lime" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="Label.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Black" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Label.Triggers>
+            </Label>
+        </Grid>
+    </Grid>
+</Window>

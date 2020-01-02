@@ -1,0 +1,24 @@
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\Memory Tools.csprojAssemblyReference.cache
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\MainWindow.baml
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\About.g.cs
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\Error.g.cs
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\MainWindow.g.cs
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\ProcessSelector.g.cs
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\ThreadWindow.g.cs
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\App.g.cs
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\Memory Tools_MarkupCompile.cache
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\Memory Tools_MarkupCompile.lref
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\bin\Debug\Memory Tools.exe.config
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\bin\Debug\Memory Tools.exe
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\bin\Debug\Memory Tools.pdb
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\About.baml
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\Error.baml
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\ProcessSelector.baml
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\ThreadWindow.baml
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\Memory Tools.g.resources
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\Memory_Tools.Properties.Resources.resources
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\Memory Tools.csproj.GenerateResource.cache
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\Memory Tools.csproj.CoreCompileInputs.cache
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\Memory Tools.exe
+C:\Users\catteralldm\source\repos\Memory Tools\Memory Tools\obj\Debug\Memory Tools.pdb

@@ -1,0 +1,397 @@
+﻿<!--ALWAYS MAKE SURE THAT OPACITY IS SET TO 100 WHEN FIXING. OTHERWISE, SET TO 0-->
+<Window x:Class="Memory_Tools.ThreadWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Memory_Tools"
+        mc:Ignorable="d"
+        Opacity="0"
+        Title="Thread Information" Height="503.64" Width="643.173" Background="#FF5A5A5A" AllowsTransparency="True" WindowStyle="None" Closing="Window_Closing">
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Duration="00:00:0.25" Storyboard.TargetProperty="Opacity" To="1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid>
+        <Button x:Name="SuspendThreadButton" Content="Suspend Thread" HorizontalAlignment="Left" Margin="140,477,0,0" VerticalAlignment="Top" Width="125" Click="SuspendThreadButton_Click"/>
+        <Button x:Name="Reload" Content="Reload Properties" HorizontalAlignment="Left" Margin="10,477,0,0" VerticalAlignment="Top" Width="125" Click="Reload_Click"/>
+        <TabControl HorizontalAlignment="Left" Height="430" Margin="10,42,0,0" VerticalAlignment="Top" Width="625">
+            <TabItem Header="x86 Information">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Registers" HorizontalAlignment="Left" Height="274" VerticalAlignment="Top" Width="616" Foreground="Black" BorderBrush="Black">
+                        <Grid>
+                            <GroupBox Header="Accumulator" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="EAX" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="106" Margin="0,0,-2,0" Tag="Eax" TextChanged="TextBoxChangeHandler"/>
+                            </GroupBox>
+                            <GroupBox Header="Base Pointer" HorizontalAlignment="Left" Height="45" Margin="121,0,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="EBP" HorizontalAlignment="Left" TextWrapping="Wrap" Width="106" Margin="0,0,-2,0" Tag="Ebp" TextChanged="TextBoxChangeHandler"/>
+                            </GroupBox>
+                            <GroupBox Header="Base Register" HorizontalAlignment="Left" Height="45" Margin="242,0,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="EBX" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Ebx" TextChanged="TextBoxChangeHandler"/>
+                            </GroupBox>
+                            <GroupBox Header="Counter" HorizontalAlignment="Left" Height="46" Margin="363,-1,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="ECX" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Margin="0,0,-2,0" Tag="Ecx" TextChanged="TextBoxChangeHandler"/>
+                            </GroupBox>
+                            <GroupBox Header="Destination Index" HorizontalAlignment="Left" Height="46" Margin="0,45,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="EDI" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Edi"/>
+                            </GroupBox>
+                            <GroupBox Header="Data" HorizontalAlignment="Left" Height="46" Margin="484,-1,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="EDX" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Edx" TextChanged="TextBoxChangeHandler"/>
+                            </GroupBox>
+                            <GroupBox Header="Current Instruction" HorizontalAlignment="Left" Height="46" Margin="242,45,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="EIP" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Eip" TextChanged="TextBoxChangeHandler"/>
+                            </GroupBox>
+                            <GroupBox Header="Source Index" HorizontalAlignment="Left" Height="46" Margin="363,45,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="ESI" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Esi" TextChanged="TextBoxChangeHandler"/>
+                            </GroupBox>
+                            <GroupBox Header="Stack Pointer" HorizontalAlignment="Left" Height="46" Margin="484,44,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="ESP" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Esp" TextChanged="TextBoxChangeHandler"/>
+                            </GroupBox>
+                            <GroupBox Header="Flags" HorizontalAlignment="Left" Height="46" Margin="121,45,0,0" VerticalAlignment="Top" Width="116" BorderBrush="Black">
+                                <TextBox x:Name="EFlags" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="EFlags" TextChanged="TextBoxChangeHandler"/>
+                            </GroupBox>
+                            <GroupBox Header="Debug Registers" HorizontalAlignment="Left" Height="157" Margin="0,91,0,0" VerticalAlignment="Top" Width="237" Foreground="Black" BorderBrush="Black">
+                                <Grid>
+                                    <GroupBox Header="0" HorizontalAlignment="Left" Height="47" VerticalAlignment="Top" Width="110" Margin="0,-5,0,0" BorderBrush="Black">
+                                        <TextBox x:Name="Dr0_32" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Margin="0,0,-2,0" Tag="Dr0" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+                                    <GroupBox Header="1" HorizontalAlignment="Left" Height="47" Margin="115,-5,0,0" VerticalAlignment="Top" Width="110" BorderBrush="Black">
+                                        <TextBox x:Name="Dr1_32" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Margin="0,0,-2,0" Tag="Dr1" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+                                    <GroupBox Header="2" HorizontalAlignment="Left" Height="47" Margin="0,38,0,0" VerticalAlignment="Top" Width="110" BorderBrush="Black">
+                                        <TextBox x:Name="Dr2_32" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Margin="0,0,-2,0" Tag="Dr2" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+                                    <GroupBox Header="3" HorizontalAlignment="Left" Height="47" Margin="115,38,0,0" VerticalAlignment="Top" Width="110" BorderBrush="Black">
+                                        <TextBox x:Name="Dr3_32" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Tag="Dr3" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+                                    <GroupBox Header="6" HorizontalAlignment="Left" Height="47" Margin="0,85,0,0" VerticalAlignment="Top" Width="110" BorderBrush="Black">
+                                        <TextBox x:Name="Dr6_32" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Tag="Dr6" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+                                    <GroupBox Header="7" HorizontalAlignment="Left" Height="47" Margin="115,85,0,0" VerticalAlignment="Top" Width="110" BorderBrush="Black">
+                                        <TextBox x:Name="Dr7_32" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Tag="Dr7" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Segments" HorizontalAlignment="Left" Height="115" Margin="242,91,0,0" VerticalAlignment="Top" Width="358" BorderBrush="Black">
+                                <Grid>
+                                    <GroupBox Header="Cs" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegCs_32" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegCs" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Ds" HorizontalAlignment="Left" Height="45" Margin="117,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegDs_32" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegDs" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Es" HorizontalAlignment="Left" Height="45" Margin="236,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegEs_32" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegEs" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Fs" HorizontalAlignment="Left" Height="46" Margin="0,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegFs_32" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegFs" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Gs" HorizontalAlignment="Left" Height="46" Margin="117,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegGs_32" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegGs" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Ss" HorizontalAlignment="Left" Height="46" Margin="236,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegSs_32" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegSs" TextChanged="TextBoxChangeHandler"/>
+                                    </GroupBox>
+
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Float Save Data" HorizontalAlignment="Left" Height="110" Margin="0,274,0,0" VerticalAlignment="Top" Width="432" BorderBrush="Black" Foreground="Black">
+                        <Grid>
+                            <GroupBox Header="Control Word" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="ControlWord" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="ControlWord"/>
+                            </GroupBox>
+                            <GroupBox Header="Cr0Npx State" HorizontalAlignment="Left" Height="43" Margin="105,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="Cr0NpxState" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="Cr0NpxState"/>
+                            </GroupBox>
+                            <GroupBox Header="Data Offset" HorizontalAlignment="Left" Height="43" Margin="210,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="DataOffset" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="DataOffset"/>
+                            </GroupBox>
+                            <GroupBox Header="Data Selector" HorizontalAlignment="Left" Height="43" Margin="315,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="DataSelector" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="DataSelector"/>
+                            </GroupBox>
+                            <GroupBox Header="Error Offset" HorizontalAlignment="Left" Height="43" Margin="0,43,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="ErrorOffset" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="ErrorOffset"/>
+                            </GroupBox>
+                            <GroupBox Header="Error Selector" HorizontalAlignment="Left" Height="43" Margin="105,43,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="ErrorSelector" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="ErrorSelector"/>
+                            </GroupBox>
+                            <GroupBox Header="Status Word" HorizontalAlignment="Left" Height="43" Margin="210,43,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="StatusWord" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="StatusWord"/>
+                            </GroupBox>
+                            <GroupBox Header="Tag Word" HorizontalAlignment="Left" Height="43" Margin="315,43,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="TagWord" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="TagWord"/>
+                            </GroupBox>
+
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="x64 Information">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Registers" HorizontalAlignment="Left" Height="402" VerticalAlignment="Top" Width="616" Foreground="Black" BorderBrush="Black">
+                        <Grid>
+                            <GroupBox Header="Accumulator" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="RAX" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="106" Margin="0,0,-2,0" Tag="Rax" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Base Pointer" HorizontalAlignment="Left" Height="45" Margin="121,0,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="RBP" HorizontalAlignment="Left" TextWrapping="Wrap" Width="106" Margin="0,0,-2,0" Tag="Rbp" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Base Register" HorizontalAlignment="Left" Height="45" Margin="242,0,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="RBX" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Rbx" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Counter" HorizontalAlignment="Left" Height="46" Margin="363,-1,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="RCX" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Margin="0,0,-2,0" Tag="Rcx" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Destination Index" HorizontalAlignment="Left" Height="46" Margin="0,45,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="RDI" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Rdi" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Data" HorizontalAlignment="Left" Height="46" Margin="484,-1,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="RDX" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Rdx" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Current Instruction" HorizontalAlignment="Left" Height="46" Margin="242,45,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="RIP" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Rip" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Source Index" HorizontalAlignment="Left" Height="46" Margin="363,45,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="RSI" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Rsi" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Stack Pointer" HorizontalAlignment="Left" Height="46" Margin="484,44,0,0" VerticalAlignment="Top" Width="116" Foreground="Black" BorderBrush="Black">
+                                <TextBox x:Name="RSP" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="Rsp" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Flags" HorizontalAlignment="Left" Height="46" Margin="121,45,0,0" VerticalAlignment="Top" Width="116" BorderBrush="Black">
+                                <TextBox x:Name="EFlags_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Tag="EFlags" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Debug Registers" HorizontalAlignment="Left" Height="199" Margin="0,91,0,0" VerticalAlignment="Top" Width="237" Foreground="Black" BorderBrush="Black">
+                                <Grid>
+                                    <GroupBox Header="0" HorizontalAlignment="Left" Height="47" VerticalAlignment="Top" Width="110" Margin="0,38,0,0" BorderBrush="Black">
+                                        <TextBox x:Name="Dr0_64" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Margin="0,0,-2,0" Tag="Dr0" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+                                    <GroupBox Header="1" HorizontalAlignment="Left" Height="47" Margin="115,38,0,0" VerticalAlignment="Top" Width="110" BorderBrush="Black">
+                                        <TextBox x:Name="Dr1_64" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Margin="0,0,-2,0" Tag="Dr1" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+                                    <GroupBox Header="2" HorizontalAlignment="Left" Height="47" Margin="0,85,0,0" VerticalAlignment="Top" Width="110" BorderBrush="Black">
+                                        <TextBox x:Name="Dr2_64" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Margin="0,0,-2,0" Tag="Dr2" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+                                    <GroupBox Header="3" HorizontalAlignment="Left" Height="47" Margin="115,83,0,0" VerticalAlignment="Top" Width="110" BorderBrush="Black">
+                                        <TextBox x:Name="Dr3_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Tag="Dr3" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+                                    <GroupBox Header="6" HorizontalAlignment="Left" Height="47" Margin="0,130,0,0" VerticalAlignment="Top" Width="110" BorderBrush="Black">
+                                        <TextBox x:Name="Dr6_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Tag="Dr6" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+                                    <GroupBox Header="7" HorizontalAlignment="Left" Height="47" Margin="115,130,0,0" VerticalAlignment="Top" Width="110" BorderBrush="Black">
+                                        <TextBox x:Name="Dr7_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Tag="Dr7" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Debug Control" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="110" BorderBrush="Black" Margin="58,-5,0,0">
+                                        <TextBox x:Name="DebugControl" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Tag="DebugControl" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Segments" HorizontalAlignment="Left" Height="115" Margin="242,91,0,0" VerticalAlignment="Top" Width="358" BorderBrush="Black">
+                                <Grid>
+                                    <GroupBox Header="Cs" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegCs_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegCs" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Ds" HorizontalAlignment="Left" Height="45" Margin="117,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegDs_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegDs" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Es" HorizontalAlignment="Left" Height="45" Margin="236,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegEs_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegEs" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Fs" HorizontalAlignment="Left" Height="46" Margin="0,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegFs_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegFs" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Gs" HorizontalAlignment="Left" Height="46" Margin="117,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegGs_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegGs" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Ss" HorizontalAlignment="Left" Height="46" Margin="236,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="SegSs_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="SegSs" TextChanged="TextBoxChangeHandler64"/>
+                                    </GroupBox>
+
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Last Branch from Instruction" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="187" BorderBrush="Black" Margin="242,200,0,0">
+                                <TextBox x:Name="LastBranchFromInstruction" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="177" Margin="0,0,-2,-4" Tag="LastBranchFromRip" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Last Branch to Instruction" HorizontalAlignment="Left" Height="45" Margin="429,200,0,0" VerticalAlignment="Top" Width="171" BorderBrush="Black">
+                                <TextBox x:Name="LastBranchToInstruction" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="161" Margin="0,0,-2,-4" Tag="LastBranchToRip" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Last Exception from Instruction" HorizontalAlignment="Left" Height="45" Margin="242,245,0,0" VerticalAlignment="Top" Width="187" BorderBrush="Black">
+                                <TextBox x:Name="LastExceptionFromInstruction" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="177" Margin="0,0,-2,-4" Tag="LastExceptionFromRip" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Last Exception to Instruction" HorizontalAlignment="Left" Height="45" Margin="429,245,0,0" VerticalAlignment="Top" Width="171" BorderBrush="Black">
+                                <TextBox x:Name="LastExceptionToInstruction" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="161" Margin="0,0,-2,-4" Tag="LastExceptionToRip" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="P1 Home" HorizontalAlignment="Left" Height="45" Margin="0,290,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="P1Home" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="P1Home" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="P3 Home" HorizontalAlignment="Left" Height="45" Margin="200,290,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="P3Home" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="P3Home" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="P2 Home" HorizontalAlignment="Left" Height="45" Margin="100,290,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="P2Home" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="P2Home" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="P4 Home" HorizontalAlignment="Left" Height="45" Margin="300,290,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="P4Home" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="P4Home" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="P5 Home" HorizontalAlignment="Left" Height="45" Margin="400,290,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="P5Home" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="P5Home" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="P6 Home" HorizontalAlignment="Left" Height="45" Margin="500,290,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="P6Home" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Margin="0,0,-2,-4" Tag="P6Home" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="x64 Information (Extended)">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Registers" HorizontalAlignment="Left" Height="233" VerticalAlignment="Top" Width="609" BorderBrush="Black">
+                        <Grid>
+                            <GroupBox Header="Vector Control" HorizontalAlignment="Left" Height="45" Margin="0,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="VectorControl" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="VectorControl" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="R8" HorizontalAlignment="Left" Height="45" Margin="105,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="R8" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="R8" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="R9" HorizontalAlignment="Left" Height="45" Margin="210,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="R9" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="R9" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="MxCsr" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="MxCsr" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="MxCsr" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="R13" HorizontalAlignment="Left" Height="45" Margin="210,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="R13" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="R13" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="R14" HorizontalAlignment="Left" Height="45" Margin="315,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="R14" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="R14" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="R11" HorizontalAlignment="Left" Height="45" Margin="420,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="R11" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="R11" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="R10" HorizontalAlignment="Left" Height="45" Margin="315,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="R10" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="R10" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="R15" HorizontalAlignment="Left" Height="45" Margin="420,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="R15" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="R15" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="R12" HorizontalAlignment="Left" Height="45" Margin="105,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                <TextBox x:Name="R12" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="R12" TextChanged="TextBoxChangeHandler64"/>
+                            </GroupBox>
+                            <GroupBox Header="Float Save" HorizontalAlignment="Left" Height="112" Margin="0,90,0,0" VerticalAlignment="Top" Width="597" BorderBrush="Black">
+                                <Grid>
+                                    <GroupBox Header="Control Word" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="100" Foreground="Black" BorderBrush="Black">
+                                        <TextBox x:Name="ControlWord_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="ControlWord"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Data Offset" HorizontalAlignment="Left" Height="45" Margin="105,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="DataOffset_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="DataOffset"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Data Selector" HorizontalAlignment="Left" Height="45" Margin="210,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="DataSelector_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="DataSelector"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Error Offset" HorizontalAlignment="Left" Height="45" Margin="315,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="ErrorOffset_64" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Margin="0,0,-2,-4" Tag="ErrorOffset"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Error OP Code" HorizontalAlignment="Left" Height="45" Margin="420,0,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="ErrorOPCode" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="ErrorOpcode"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Error Selector" HorizontalAlignment="Left" Height="45" Margin="0,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="ErrorSelector_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="ErrorSelector"/>
+                                    </GroupBox>
+                                    <GroupBox Header="MxCsr" HorizontalAlignment="Left" Height="45" Margin="105,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="MxCsr_DUN" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="MxCsr"/>
+                                    </GroupBox>
+                                    <GroupBox Header="MxCsr Mask" HorizontalAlignment="Left" Height="45" Margin="210,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="MxCsr_Mask" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="MxCsr_Mask"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Status Word" HorizontalAlignment="Left" Height="45" Margin="315,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="StatusWord_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="StatusWord"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Tag Word" HorizontalAlignment="Left" Height="45" Margin="420,45,0,0" VerticalAlignment="Top" Width="100" BorderBrush="Black">
+                                        <TextBox x:Name="TagWord_64" HorizontalAlignment="Left" Height="23" Margin="0,0,-2,-4" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Tag="TagWord"/>
+                                    </GroupBox>
+
+                                </Grid>
+                            </GroupBox>
+
+                        </Grid>
+                    </GroupBox>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="AbortThread" Content="Terminate Thread" HorizontalAlignment="Left" Margin="270,477,0,0" VerticalAlignment="Top" Width="125" Click="AbortThread_Click"/>
+        <Grid HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="662.173" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+            <Rectangle Fill="#FF5A5A5A" HorizontalAlignment="Left" Height="35" Stroke="#FF5A5A5A" VerticalAlignment="Top" Width="662.173"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Thread Information" VerticalAlignment="Top" Foreground="#FF00FFE8" FontSize="14"/>
+            <Label x:Name="CloseButton" Content="x" HorizontalAlignment="Left" Margin="612,3,0,-9" VerticalAlignment="Top" Foreground="Black" FontSize="32" Height="41" FontFamily="OCR A Extended" MouseDown="CloseButton_MouseDown">
+                <Label.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="Close"/>
+                    </ToolTip>
+                </Label.ToolTip>
+
+                <Label.Triggers>
+                    <EventTrigger RoutedEvent="Label.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Red" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="Label.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Black" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Label.Triggers>
+            </Label>
+            <Label x:Name="MinimizeButton" Content="__" HorizontalAlignment="Left" Margin="583,3,0,-24" VerticalAlignment="Top" FontSize="32" Height="56" FontFamily="OCR A Extended" MouseDown="MinimizeButton_MouseDown">
+                <Label.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="Minimize"/>
+                    </ToolTip>
+                </Label.ToolTip>
+
+                <Label.Triggers>
+                    <EventTrigger RoutedEvent="Label.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Yellow" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="Label.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Black" 
+                                    Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Label.Triggers>
+            </Label>
+        </Grid>
+
+    </Grid>
+</Window>
