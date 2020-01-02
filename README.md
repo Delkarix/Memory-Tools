@@ -36,7 +36,7 @@ A program that provides a series a tools specially designed to manipulate proces
 
 # Usage
 ## Memory Corruptor
-1. Click on **File** in the top-left corner and select **None**.
+1. Click on the process button within the **Selected Process** groupbox.
 2. After some time, a dialog box will appear with a list of processes. If the desired process does not appear, try pressing the **Refresh** button. If it still does not work, ensure that the process is running. If it does not work after this, try running the program as Administrator.
 3. Select the desired process and click **OK**.
 4. The dialog will close. On the left-hand side of the `Memory Corruptor` tab, you will see a list of Process Modules in the tree. You can click on the arrows to see the respective Memory Sections. You can view the properties of these by clicking on the arrows. From there, you can see the Base Address, End Address, Byte Size, Raw Base Address, Raw End Address, Raw Byte Size, and Data Flags.
@@ -56,13 +56,13 @@ A program that provides a series a tools specially designed to manipulate proces
     + Subtracts 1 from each byte.
 
 ## Process Manipulator
-1. Click on **File** in the top-left corner and select **None**.
+1. Click on the process button within the **Selected Process** groupbox.
 2. After some time, a dialog box will appear with a list of processes. If the desired process does not appear, try pressing the **Refresh** button. If it still does not work, ensure that the process is running. If it does not work after this, try running the program as Administrator.
 3. Select the desired process and click **OK**.
 4. The dialog will close. From there, you can use any of the tools provided below.
 
 #### Process Painter
-1. Click on "Current Color" to change the color. 
+1. Click on **Current Color** to change the color. 
 2. Press the Green Button with the triangle.
 3. Move your mouse over to the target process main window. The colors will be painted on as pixels.
 
@@ -83,7 +83,7 @@ A program that provides a series a tools specially designed to manipulate proces
 > **NOTE**: If you want to execute code without utilizing DLL injections, it is a good idea to use the **Function Injector** to inject the `gets` function. The `gets` function is a default C/C++ function that forces a thread to pause and wait for input. A parameter is required, but it can be anything. Locate the thread in the thread list (you might need to click **Reload**) and change the `Current Instruction` field to the address of a desired function. If you wish to hijack a thread, locate the desired thread and suspend it. Then, change the `Current Instruction` field to the address of the desired function. Thread Hijacking is highly volatile and great care should be taken.
 
 ## Code Injector
-1. Click on **File** in the top-left corner and select **None**.
+1. Click on the process button within the **Selected Process** groupbox.
 2. After some time, a dialog box will appear with a list of processes. If the desired process does not appear, try pressing the **Refresh** button. If it still does not work, ensure that the process is running. If it does not work after this, try running the program as Administrator.
 3. Select the desired process and click **OK**.
 4. The dialog will close. From there, you use any of the tools provided below.
