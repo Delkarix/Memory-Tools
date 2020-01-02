@@ -1,7 +1,7 @@
 # Memory-Tools
 A program that provides a series a tools specially designed to manipulate process memory in interesting ways. Built and tested on Windows 10. The downloads can be found [here](https://github.com/Delkarix/Memory-Tools/releases).
 
-> **If you discover any bugs, do not hesitate to report them to me in through the Issues tab.**
+> **If you discover any bugs, do not hesitate to report them to me through the Issues tab.**
 
 
 > **NOTE**: This repository is a recreation of my old one. While experimenting with another one of my programs (`Peter Griffin`), the Visual Studio files became corrupted and the application completely broke.
