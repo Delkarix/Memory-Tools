@@ -109,3 +109,6 @@ A program that provides a series a tools specially designed to manipulate proces
 #### Bytecode Reader
 1. Specify the Base Address and End Address fields. The Base Address must not be larger than the End Address.
 2. Click "Save File"
+
+## Known Bugs
+* The **Unload DLLs** mechanism is broken and possibly unfixable.
