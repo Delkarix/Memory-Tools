@@ -1,10 +1,11 @@
 # Memory-Tools
 A program that provides a series a tools specially designed to manipulate process memory in interesting ways. Built and tested on Windows 10. The downloads can be found [here](https://github.com/Delkarix/Memory-Tools/releases).
 
+### NOTE: It is unlikely that any further updates will be released because my computer was wiped and I lost the original code for Memory Tools. The code in this repo is for v2.8 while the downloads show v2.9.
+
 > **If you discover any bugs, do not hesitate to report them to me through the Issues tab.**
 
-
-> **NOTE**: This repository is a recreation of my old one. While experimenting with another one of my programs (`Peter Griffin`), the Visual Studio files became corrupted and the application completely broke.
+> **NOTE**: This repository is a recreation of my old one. While experimenting with one of my other programs (`Peter Griffin`), the Visual Studio files became corrupted and the application completely broke.
 
 ## Current Features
 ### Memory Corruptor
